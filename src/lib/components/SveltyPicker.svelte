@@ -31,7 +31,7 @@
   export let value = null;
   /** @type {Date|Date[]|null} */
   export let initialDate = null;
-  /** @type {boolean }*/
+  /** @type {boolean} */
   export let isRange = false;
   /** @type {Date | string | null} */
   export let startDate = null;
@@ -45,7 +45,9 @@
   export let mode = 'auto';
   /** @type {?function(Date): boolean} */
   export let disableDatesFn = null;
-
+  /** @type {boolean} */
+  export let escClosesPicker = false;
+  /** @type {boolean} */
   export let manualInput = false;
   /** ************************************ 👇 configurable globally */
   /** @type {string} */
@@ -103,6 +105,8 @@
   let displayValue = computeDisplayValue();
   /** @type {number?} as a timestamp */
   let calendarHoverDate;
+  /** @type {boolean} */
+  let wasPickerVisible = false;
   $: pickerVisible = pickerOnly;
   $: parsedStartDate = startDate ? parseDate(startDate, format, i18n, formatType) : null;
   $: parsedEndDate = endDate ? new Date(parseDate(endDate, format, i18n, formatType).setSeconds(1)) : null;
@@ -396,6 +400,15 @@
    * @param {KeyboardEvent} e
    */
   function onKeyDown(e) {
+    if (escClosesPicker && e.key === 'Escape') {
+      e.preventDefault();
+      if (pickerVisible) {
+        wasPickerVisible = true;
+        e.stopPropagation();
+        resetView();
+      }
+      return;
+    }
     if (!pickerVisible) {
       ["Backspace", "Delete"].includes(e.key) && !required && onClear();
       if (e.key === 'Enter') onInputFocus();
@@ -458,6 +471,18 @@
         break;
       default:
         !manualInput && e.preventDefault();
+    }
+  }
+
+  /**
+   * @param {KeyboardEvent} e
+   */
+  function onKeyUp(e) {
+    if (escClosesPicker && e.key === 'Escape' && wasPickerVisible) {
+      e.preventDefault();
+      e.stopPropagation();  
+      wasPickerVisible = false;
+      return;
     }
   }
 
@@ -578,6 +603,7 @@
       on:input
       on:change
       on:keydown={onKeyDown}
+      on:keyup={onKeyUp}
     />
     {/if}
   {/if}
