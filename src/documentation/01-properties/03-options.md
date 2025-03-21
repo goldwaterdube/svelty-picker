@@ -30,5 +30,6 @@
 | clearToggle     | `bool`                      | `true`            | Allows to clear selected date when clicking on the same date when in `mode='date'` or `mode='auto'` resolving to `'date'` |
 | autocommit      | `bool`                      | `true`            | Whether date/time selection is automatic or manual |
 | i18n            | `object`                    | `en`              | localization object, english is by default |
-| validatorAction | `array`                     | `null`            | Bind validator action for inner `<input>` element. Designed to be used with `svelte-use-form`.
-| positionResolver | `function`                 | internal          | Action which resolves floating position of picker. Default one uses `@floating-ui` under the hood. So you can use this library for your custom position resolver function
+| validatorAction | `array`                     | `null`            | Bind validator action for inner `<input>` element. Designed to be used with `svelte-use-form` |
+| positionResolver | `function`                 | internal          | Action which resolves floating position of picker. Default one uses `@floating-ui` under the hood. So you can use this library for your custom position resolver function |
+| escClosesPicker | `bool`                      | `false`           | Makes `Escape` close picker rather than clearing input. Stops `Escape` from propagating to parent elements when picker closes |
