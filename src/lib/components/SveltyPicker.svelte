@@ -46,7 +46,7 @@
   /** @type {?function(Date): boolean} */
   export let disableDatesFn = null;
   /** @type {boolean} */
-  export let escClosesPicker = false;
+  export let closeOnEscape = false;
   /** @type {boolean} */
   export let manualInput = false;
   /** ************************************ 👇 configurable globally */
@@ -400,7 +400,7 @@
    * @param {KeyboardEvent} e
    */
   function onKeyDown(e) {
-    if (escClosesPicker && e.key === 'Escape') {
+    if (closeOnEscape && e.key === 'Escape') {
       e.preventDefault();
       if (pickerVisible) {
         wasPickerVisible = true;
@@ -478,7 +478,7 @@
    * @param {KeyboardEvent} e
    */
   function onKeyUp(e) {
-    if (escClosesPicker && e.key === 'Escape' && wasPickerVisible) {
+    if (closeOnEscape && e.key === 'Escape' && wasPickerVisible) {
       e.preventDefault();
       e.stopPropagation();  
       wasPickerVisible = false;

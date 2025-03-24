@@ -32,4 +32,5 @@
 | i18n            | `object`                    | `en`              | localization object, english is by default |
 | validatorAction | `array`                     | `null`            | Bind validator action for inner `<input>` element. Designed to be used with `svelte-use-form` |
 | positionResolver | `function`                 | internal          | Action which resolves floating position of picker. Default one uses `@floating-ui` under the hood. So you can use this library for your custom position resolver function |
-| escClosesPicker | `bool`                      | `false`           | Makes `Escape` close picker rather than clearing input. Stops `Escape` from propagating to parent elements when picker closes |
+| closeOnEscape | `bool`                      | `false`           | `Escape` closes picker rather than clearing input. Prevents `Escape` from propagating to parent elements as picker closes |
+
