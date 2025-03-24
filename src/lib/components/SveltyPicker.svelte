@@ -48,6 +48,8 @@
   /** @type {boolean} */
   export let closeOnEscape = false;
   /** @type {boolean} */
+  export let tabThrough = false;
+  /** @type {boolean} */
   export let manualInput = false;
   /** ************************************ 👇 configurable globally */
   /** @type {string} */
@@ -465,8 +467,11 @@
       case "Tab":
         if (pickerVisible) {
           pickerVisible = false;
-          e.preventDefault();
+          if (!tabThrough) {
+            e.preventDefault();
+          }
         }
+        break;
       case "F5":
         break;
       default:
