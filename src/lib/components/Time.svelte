@@ -35,7 +35,13 @@
           : val - (val % 5);
       }
     } else {
-      val = selectedHour + val;
+      let h = selectedHour;
+      do {
+        h = ((h + val + 24) % 24);
+      } while (isDisabled(h) && h !== selectedHour);
+      
+      if (h === selectedHour) return;
+      val = h;
     }
     enableViewToggle = false;
     onClick({
