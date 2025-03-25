@@ -532,7 +532,7 @@
 .sdt-tick[disabled] {
   cursor: not-allowed;
   color: var(--sdt-clock-disabled, #b22222);
-  background-color: var(--sdt-clock-disabled-bg, var(--sdt-clock-bg,#eeeded));
+  background-color: var(--sdt-clock-disabled-bg, var(--sdt-clock-bg,transparent));
 }
 .sdt-tick.outer-tick {
   opacity: 0;
