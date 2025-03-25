@@ -10,6 +10,10 @@
   export let startDate = null;
   /** @type {Date|null} */
   export let endDate = null;
+  /** @type {number|null} */
+  export let startHour = null;
+  /** @type {number|null} */
+  export let endHour = null;
   export let hourOnly = false;
   export let minuteIncrement = 1;
   export let showMeridian = false;
@@ -181,6 +185,13 @@
    */
   function isDisabled(val, isManualMinuteCheck = false) {
     if (typeof val === 'string') val = parseInt(val);
+
+    // Hour restrictions (simple range check)
+    if (!isMinuteView && (startHour !== null || endHour !== null)) {
+      if (startHour !== null && val < startHour) return true;
+      if (endHour !== null && val > endHour) return true;
+    }
+
     if (startDate && endDate && sameDateRestriction) {
       if (isMinuteView || isManualMinuteCheck) {
         return (startDate.getHours() === innerDate.getHours() && startDate.getMinutes() > val)
@@ -383,14 +394,14 @@
     {#each pos as p, i(p.val)}
       <button type="button" style={`left:${p.x}px; top:${p.y}px;`} class="sdt-tick" class:outer-tick={isMinuteView} transition:fade|local={{duration: 200}}
         data-value={p.val}
-        disabled={(startDate || endDate) && innerDate && isDisabled(p.val, false)}
+        disabled={(startDate || endDate || (!isMinuteView && (startHour !== null || endHour !== null))) && innerDate && isDisabled(p.val, false)}
         class:is-selected={isSelected(selectedHour, p.val, i)}
       >{p.val}</button>
     {/each}
     {#each innerHours as p, i}
       <button type="button" style={`left:${p.x}px; top:${p.y}px;`} class="sdt-tick" class:outer-tick={showMeridian && !isMinuteView} transition:fade|local={{duration: 200}}
       data-value={p.val}
-      disabled={(startDate || endDate) && innerDate && isDisabled(p.val, false)}
+      disabled={(startDate || endDate || (!isMinuteView && (startHour !== null || endHour !== null))) && innerDate && isDisabled(p.val, false)}
       class:is-selected={isSelected(isMinuteView ? selectedMinutes : selectedHour, p.val, i)}
       >{p.val}</button>
     {/each}

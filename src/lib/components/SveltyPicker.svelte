@@ -37,6 +37,10 @@
   export let startDate = null;
   /** @type {Date | string | null} */
   export let endDate = null;
+  /** @type {number | null} */
+  export let startHour = null;
+  /** @type {number | null} */
+  export let endHour = null;
   /** @type {boolean} */
   export let pickerOnly = false;
   /** @type {number} */
@@ -648,6 +652,8 @@
         date={innerDates[i]}
         startDate={parsedStartDate}
         endDate={parsedEndDate}
+        {startHour}
+        {endHour}
         hasDateComponent={resolvedMode !== "time"}
         bind:this={w.ref}
         showMeridian={format.match(formatType === 'php' ? 'a|A' : 'p|P') !== null}

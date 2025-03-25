@@ -10,6 +10,8 @@
 | isRange         | `bool`                      | `false`           | enables range picker mode  |
 | startDate       | <code>string\|Date</code>   | `null`            | limit minimal selectable date |
 | endDate         | <code>string\|Date</code>   | `null`            | limit maximal selectable date |
+| startHour       | `number`                    | `null`            | limit minimal selectable hour (0-23) |
+| endHour         | `number`                    | `null`            | limit maximal selectable hour (0-23) |
 | pickerOnly      | `bool`                      | `false`           | Picker is always visible and input field is then hidden, but still present |
 | startView       | `number`                    | `2`               | Which mode should picker at, `0` - decade, `1` - year, `2` - month (default), `3` - time picker
 | mode            | `string`                    | `auto`            | restrict picker's mode. Possible values: `auto\|date\|datetime\|time`. By default it try to guess the mode from `format` |
