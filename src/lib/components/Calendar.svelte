@@ -82,6 +82,16 @@
     }
   }
 
+  /**
+   * Programmatically set the visible month/year of the calendar without selecting a date.
+   * @param {Date} date
+   */
+  export function setActiveDate(date) {
+    if (!date) return
+    const d = new Date(date)
+    activeDate = new Date(d.getFullYear(), d.getMonth(), 1)
+  }
+
   /** @type Date? */
   let internalDate = dates[wid] || null;
   let activeDate = wid === 1
@@ -90,8 +100,7 @@
       // then return that, otherwise return the month succeeding the start date
       if (dates.length === 2 && dates[1] && (dates[0].getMonth() != dates[1].getMonth() || dates[0].getFullYear() != dates[1].getFullYear())) return dates[1];
       const d = new Date(dates[0] || new Date());
-      d.setMonth(d.getMonth()+1);   // by default move second calendar by 1 month
-      return d;
+      return new Date(d.getFullYear(), d.getMonth() + 1, 1) // by default move second calendar by 1 month
     })()
     : new Date(dates[0]?.valueOf() || new Date());
 

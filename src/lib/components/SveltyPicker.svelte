@@ -98,6 +98,8 @@
   export let ce_displayElement = null;
   /** @type {Function|null} */
   export let positionResolver = usePosition;
+  /** @type {Date|null} */
+  export let initialVisibleMonthIncludes = null;
 
   const dispatch = createEventDispatcher();
 
@@ -532,9 +534,29 @@
     !pickerVisible && onInputFocus();
   }
 
+  function isValidDate(val) {
+    return val instanceof Date && Number.isFinite(val.getTime())
+  }
+
+  /**
+   * Set calendar initial month to the provided date's month if there is no current selection.
+   * Non-intrusive: does not select a date, only changes the visible month.
+   *
+   * @param {Date|null|undefined} date
+   */
+  function adjustMonthHintIfEmpty(date = initialVisibleMonthIncludes) {
+    if (innerDates.length > 0) return
+    if (!isRange && isValidDate(date)) {
+      ref_calendar?.setActiveDate?.(
+        new Date(date.getFullYear(), date.getMonth(), 1)
+      );
+    }
+  }
+
   function onInputFocus() {
     isFocused = true;
     pickerVisible = true;
+    tick().then(() => adjustMonthHintIfEmpty())
   }
 
   function onInputBlur() {

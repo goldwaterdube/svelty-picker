@@ -36,3 +36,4 @@
 | positionResolver | `function`                 | internal          | Action which resolves floating position of picker. Default one uses `@floating-ui` under the hood. So you can use this library for your custom position resolver function |
 | closeOnEscape | `bool`                      | `false`           | `Escape` closes picker rather than clearing input. Prevents `Escape` from propagating to parent elements as picker closes |
 | tabThrough | `bool`                      | `false`           | `Tab` closes picker and immediately moves focus to next element |
+| initialVisibleMonthIncludes | `date`                      | `null`           | Initial visible dropdown month in the date picker includes this date if the field is empty |
